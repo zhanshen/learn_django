@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """minicms URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,22 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from DjangoUeditor import urls as DjangoUeditor_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^ueditor/', include(DjangoUeditor_urls)),
+
+    url(r'^$', 'news.views.index', name='index'),
+    url(r'^category/(?P<category_slug>[^/]+)/$', 'news.views.category_detail', name='category'),
+    url(r'^news/(?P<article_slug>[^/]+)/$', 'news.views.article_detail', name='article'),
 ]
+
+# use Django server /media/ files
+from django.conf import settings
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

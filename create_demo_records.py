@@ -7,8 +7,8 @@
 create some records for demo database
 '''
 
+from minicms.wsgi import *
 from news.models import Category, Article
-
 
 def main():
     columns_urls = [
