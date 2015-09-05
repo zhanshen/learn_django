@@ -14,22 +14,53 @@
     <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+    </style>
     {% block css %}
     {% endblock css %}
     {% block js %}
     {% endblock js %}
 </head>
 <body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div>
-        <div>
-            {% block content %}
-                <h1>自学成才 新闻网</h1>
-            {% endblock content %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% for category in nav_display_categories %}
+                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+</nav>
 
-    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    {% include "baidutongji.html" %}
+<div class="row clearfix">
+    <div>
+        {% block content %}
+        <h1>自学成才 新闻网</h1>
+        {% endblock content %}
+    </div>
+</div>
+
+<div class="row clearfix" style="padding-top: 20px;">
+    <div>
+        <div class="well well-sm">
+            <div style="text-align: center">
+            <a>免责申明</a>|
+            <a>关于我们</a>
+                <div>
+                    自学成才
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+{% include "baidutongji.html" %}
 </body>
 </html>

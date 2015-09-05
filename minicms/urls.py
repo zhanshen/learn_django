@@ -24,7 +24,8 @@ urlpatterns = [
 
     url(r'^$', 'news.views.index', name='index'),
     url(r'^category/(?P<category_slug>[^/]+)/$', 'news.views.category_detail', name='category'),
-    url(r'^news/(?P<article_slug>[^/]+)/$', 'news.views.article_detail', name='article'),
+    # url(r'^news/(?P<article_slug>[^/]+)/$', 'news.views.article_detail', name='article'),
+    url(r'^news/(?P<pk>\d+)/(?P<article_slug>[^/]+)/$', 'news.views.article_detail', name='article'),
 ]
 
 # use Django server /media/ files

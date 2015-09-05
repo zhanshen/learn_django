@@ -11,8 +11,11 @@ from django.core.urlresolvers import reverse
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField('栏目名称', max_length=256)
-    slug = models.CharField('栏目网址', max_length=256, db_index=True)
+    slug = models.CharField('栏目网址', max_length=256, unique=True)
     intro = models.TextField('栏目简介', default='')
+
+    nav_display = models.BooleanField('导航显示', default=False)
+    home_display = models.BooleanField('首页显示', default=False)
 
     def get_absolute_url(self):
         return reverse('category', args=(self.slug,))
@@ -32,8 +35,11 @@ class Article(models.Model):
     # 文章和栏目是多对多映射
     column = models.ManyToManyField(Category, verbose_name='归属栏目')
 
+    # id 这个是默认有的，也可以自己定义一个其它的主键来覆盖它
+    id = models.AutoField(primary_key=True)
+
     title = models.CharField('标题', max_length=256)
-    slug = models.CharField('网址', max_length=256, db_index=True)
+    slug = models.CharField('网址', max_length=256, unique=True)
 
     author = models.ForeignKey('auth.User', blank=True, null=True, verbose_name='作者')
     content = UEditorField('内容', height=300, width=1000, default=u'', blank=True,
@@ -45,7 +51,7 @@ class Article(models.Model):
     update_time = models.DateTimeField('更新时间', auto_now=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('article', args=(self.slug,))
+        return reverse('article', args=(self.pk, self.slug,))
 
     def __str__(self):
         return self.title
