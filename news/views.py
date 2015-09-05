@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 
 from news.models import Category, Article
 
@@ -19,8 +18,8 @@ def index(request):
 
 def category_detail(request, category_slug):
     # return HttpResponse("Hello, world. You're at the polls index.")
-    category = Category.objects.get(slug=category_slug)
-    context = {'category', category}
+    column = Category.objects.get(slug=category_slug)
+    context = {'category', column}
     print context
     return render(request, 'news/category.html', context)
 
